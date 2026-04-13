@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[YourStudio] | We Build Websites That Grow Your Business</title>
+    
+    <!-- Google Fonts: Syne (headings) & Inter (body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* DEEP NAVY / CHARCOAL THEME */
+            --bg-color: #0d1117; /* Space dark navy */
+            --card-bg: #161b22;
+            --card-border: #30363d;
+            --text-main: #f0f6fc;
+            --text-muted: #8b949e;
+            
+            /* ELECTRIC ACCENT */
+            --accent: #00FF94; 
+            --accent-hover: #00cc76;
+            --accent-alt: #0056FF; /* Cobalt Blue alt */
+            
+            --nav-bg: rgba(13, 17, 23, 0.85);
+            --transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            
+            /* Subtle dot grid */
+            background-image: radial-gradient(var(--card-border) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: #000;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, .logo {
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        h1 { font-size: clamp(3rem, 6vw, 5rem); letter-spacing: -0.03em; margin-bottom: 1.5rem; }
+        h2 { font-size: clamp(2rem, 4.5vw, 3.5rem); letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+        h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+
+        .text-accent { color: var(--accent); }
+        .text-muted { color: var(--text-muted); }
+        .subtitle { 
+            color: var(--accent); 
+            font-family: 'Inter', sans-serif; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            letter-spacing: 0.1em; 
+            font-size: 0.85rem; 
+            margin-bottom: 1rem; 
+            display: inline-block;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section { padding: 8rem 0; }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--accent);
+            color: #000;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 255, 148, 0.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--card-border);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--text-main);
+            transform: translateY(-2px);
+            box-shadow: none;
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* 1. Navigation */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            padding: 1rem 0;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--accent); }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* 2. Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 6rem;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 20%; left: 50%;
+            transform: translateX(-50%);
+            width: 80vw; height: 80vw;
+            max-width: 800px; max-height: 800px;
+            background: radial-gradient(circle, rgba(0,255,148,0.1) 0%, transparent 60%);
+            z-index: -1;
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin: 0 auto 3rem auto;
+            max-width: 600px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        /* Sections standard layout */
+        .section-header { text-align: center; margin-bottom: 4rem; }
+
+        /* 3. Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 3rem;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            width: 50px; height: 50px;
+            background: rgba(0, 255, 148, 0.1);
+            color: var(--accent);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-icon svg { width: 24px; height: 24px; }
+
+        /* Pricing Cards */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 3.5rem 2.5rem;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .pricing-card:hover { transform: translateY(-5px); }
+
+        .pricing-card.popular {
+            border-color: var(--accent);
+            background: linear-gradient(180deg, rgba(0, 255, 148, 0.05) 0%, var(--card-bg) 100%);
+        }
+
+        .badge-popular {
+            position: absolute;
+            top: 1.5rem; right: 1.5rem;
+            background: var(--accent);
+            color: #000;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.75rem;
+            border-radius: 100px;
+            text-transform: uppercase;
+        }
+
+        .plan-name { font-size: 1.5rem; color: var(--text-main); margin-bottom: 0.5rem; }
+        .plan-tagline { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem; min-height: 40px; }
+        .plan-price { font-family: 'Syne', sans-serif; font-size: 3rem; font-weight: 700; margin-bottom: 2rem; }
+        .plan-price span { font-size: 1rem; color: var(--text-muted); font-weight: 400; font-family: 'Inter', sans-serif; }
+        
+        .plan-features { list-style: none; margin-bottom: 3rem; flex-grow: 1; }
+        .plan-features li { display: flex; gap: 0.75rem; margin-bottom: 1rem; font-size: 0.95rem; }
+        .plan-features li svg { color: var(--accent); width: 20px; height: 20px; flex-shrink: 0; }
+
+        .pricing-note { text-align: center; color: var(--text-muted); font-size: 0.9rem; }
+
+        /* How it works */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            position: relative;
+        }
+
+        .step-num {
+            font-family: 'Syne', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--card-border);
+            line-height: 1;
+            margin-bottom: 1rem;
+            transition: var(--transition);
+        }
+        
+        .step-item:hover .step-num { color: var(--accent); -webkit-text-stroke: 1px var(--accent); }
+
+        /* FAQ */
+        .faq-wrapper { max-width: 800px; margin: 0 auto; }
+        .faq-item {
+            border-bottom: 1px solid var(--card-border);
+            padding: 1.5rem 0;
+            cursor: pointer;
+        }
+
+        .faq-q {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Syne', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .faq-q:hover { color: var(--accent); }
+
+        .faq-icon {
+            font-size: 1.5rem;
+            font-weight: 300;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-icon { transform: rotate(45deg); color: var(--accent); }
+
+        .faq-a {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, margin-top 0.4s ease;
+            color: var(--text-muted);
+        }
+
+        .faq-item.active .faq-a { max-height: 500px; margin-top: 1rem; }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 4rem;
+        }
+
+        .contact-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 3rem;
+            border-radius: 8px;
+        }
+
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label {
+            display: block; font-size: 0.9rem; font-weight: 500; margin-bottom: 0.5rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--card-border);
+            border-radius: 4px;
+            padding: 1rem;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus { outline: none; border-color: var(--accent); }
+        select.form-control { appearance: none; cursor: pointer; }
+        textarea.form-control { resize: vertical; min-height: 120px; }
+
+        .contact-info a { color: var(--text-main); text-decoration: none; font-weight: 500; }
+        .contact-info a:hover { color: var(--accent); }
+        .contact-info p { margin-bottom: 1.5rem; color: var(--text-muted); }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--card-border);
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .footer-logo { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
+        .footer-links { display: flex; gap: 1.5rem; justify-content: center; margin-bottom: 1.5rem; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; }
+        .footer-links a:hover { color: var(--accent); }
+
+        /* WhatsApp Floating */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 60px; height: 60px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4); }
+
+        /* Reveal Animations */
+        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        
+        .d-1 { transition-delay: 0.1s; }
+        .d-2 { transition-delay: 0.2s; }
+        .d-3 { transition-delay: 0.3s; }
+
+        /* Mobile Responsive */
+        @media (max-width: 900px) {
+            .services-grid, .contact-grid { grid-template-columns: 1fr; }
+            .hero-btns { flex-direction: column; }
+            .pricing-card { padding: 2.5rem 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            section { padding: 5rem 0; }
+            .hamburger { display: block; }
+            .nav-links {
+                position: fixed;
+                top: 70px; left: 0; right: 0;
+                background: var(--nav-bg);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                border-bottom: 1px solid var(--card-border);
+                transform: translateY(-150%);
+                transition: transform 0.4s ease;
+                opacity: 0;
+            }
+            .nav-links.open { transform: translateY(0); opacity: 1; }
+            .contact-card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">[YourStudio]</a>
+            <button class="hamburger">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            <div class="nav-links">
+                <a href="#services">Services</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#care">Care+</a>
+                <a href="#how">How it works</a>
+                <a href="#faq">FAQ</a>
+                <a href="#contact" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Get a Quote</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h1 class="reveal">We Build Websites<br>That <span class="text-accent">Grow Your Business</span></h1>
+            <p class="reveal d-1">A two-person studio — one builds, one talks to you. Fast, affordable, and built right for small businesses and local entrepreneurs.</p>
+            <div class="hero-btns reveal d-2">
+                <a href="#pricing" class="btn">See Our Plans</a>
+                <a href="https://wa.me/91[XXXXXXXXXX]" class="btn btn-outline" target="_blank">WhatsApp Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHAT WE DO -->
+    <section id="services">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="subtitle">What We Do</span>
+                <h2>The Studio Difference</h2>
+                <p class="text-muted">No bloated agency overhead. Just exactly what you need.</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card reveal d-1">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    </div>
+                    <h3>The Developer Side</h3>
+                    <p class="text-muted">We build fast, secure, beautiful websites from the ground up. Mobile responsiveness is standard, and we optimize everything so your customers have a perfect experience.</p>
+                </div>
+                <div class="service-card reveal d-2">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    </div>
+                    <h3>The Sales & Support Side</h3>
+                    <p class="text-muted">You never talk to a robot or an outsourced team. You deal directly with your dedicated point of contact who understands your business goals and ensures the project is perfect.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WEBSITE PLANS -->
+    <section id="pricing">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="subtitle">Website Plans</span>
+                <h2>Transparent Pricing</h2>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Basic -->
+                <div class="pricing-card reveal d-1">
+                    <div class="plan-name">Basic</div>
+                    <div class="plan-tagline">Perfect to get your business online quickly.</div>
+                    <div class="plan-price">₹7,000</div>
+                    <ul class="plan-features">
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> 1–3 pages (Home, About, Contact)</li>
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> Mobile responsive</li>
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> Clean simple design</li>
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> WhatsApp integration</li>
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> Contact form</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline">Choose Basic</a>
+                </div>
+
+                <!-- Standard -->
+                <div class="pricing-card popular reveal d-2">
+                    <div class="badge-popular">Most Popular</div>
+                    <div class="plan-name">Standard</div>
+                    <div class="plan-tagline">Best for getting leads and looking professional.</div>
+                    <div class="plan-price">₹12,000</div>
+                    <ul class="plan-features">
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> 4–8 pages</li>
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> Custom modern design</li>
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> WhatsApp + Call integration</li>
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> Enquiry / booking forms</li>
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> Basic SEO setup & fast loading</li>
+                    </ul>
+                    <a href="#contact" class="btn">Choose Standard</a>
+                </div>
+
+                <!-- Premium -->
+                <div class="pricing-card reveal d-3">
+                    <div class="plan-name">Premium</div>
+                    <div class="plan-tagline">Full-featured website, built to scale.</div>
+                    <div class="plan-price">₹25,000</div>
+                    <ul class="plan-features">
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> Unlimited pages</li>
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> Advanced UI + animations</li>
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> Admin panel (edit content yourself)</li>
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> Payment integration if needed</li>
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> SEO optimized & High performance</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline">Choose Premium</a>
+                </div>
+            </div>
+            <p class="pricing-note reveal">Small changes included — major updates priced separately.<br>All prices negotiable based on project scope.</p>
+        </div>
+    </section>
+
+    <!-- CARE+ -->
+    <section id="care" style="background: rgba(22, 27, 34, 0.5);">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="subtitle">Care+</span>
+                <h2>Maintenance Plans</h2>
+                <p class="text-muted">Keep your website healthy, fast, and updated — every month.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <div class="pricing-card reveal d-1">
+                    <div class="plan-name">Basic Care</div>
+                    <div class="plan-tagline">Keeps your site running without issues.</div>
+                    <div class="plan-price">₹499<span>/mo</span></div>
+                    <ul class="plan-features">
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> Uptime monitoring</li>
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> Small text/image changes</li>
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> Basic support</li>
+                    </ul>
+                </div>
+
+                <div class="pricing-card popular reveal d-2">
+                    <div class="badge-popular">Best Value</div>
+                    <div class="plan-name">Standard Care</div>
+                    <div class="plan-tagline">Better performance + safety.</div>
+                    <div class="plan-price">₹999<span>/mo</span></div>
+                    <ul class="plan-features">
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> Everything in Basic</li>
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> Regular backups</li>
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> Security checks</li>
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> Speed optimization & Priority support</li>
+                    </ul>
+                </div>
+
+                <div class="pricing-card reveal d-3">
+                    <div class="plan-name">Premium Care</div>
+                    <div class="plan-tagline">Complete website management.</div>
+                    <div class="plan-price">₹2,999<span>/mo</span></div>
+                    <ul class="plan-features">
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> Everything in Standard</li>
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> Unlimited small changes</li>
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> Monthly improvements & SEO</li>
+                        <li><svg viewBox="0 0 24 24"><polyline fill="none" stroke="currentColor" stroke-width="2" points="20 6 9 17 4 12"></polyline></svg> Fast priority support</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="pricing-note reveal">Small changes included — major updates priced separately.</p>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="subtitle">Process</span>
+                <h2>How It Works</h2>
+            </div>
+
+            <div class="steps-grid">
+                <div class="step-item reveal d-1">
+                    <div class="step-num">01</div>
+                    <h3 style="font-family:'Syne',sans-serif;">Tell us your needs</h3>
+                    <p class="text-muted">Tell us about your business, your goals, and who your customers are.</p>
+                </div>
+                <div class="step-item reveal d-2">
+                    <div class="step-num">02</div>
+                    <h3 style="font-family:'Syne',sans-serif;">Mockup Approval</h3>
+                    <p class="text-muted">We design a mockup for your approval so you know exactly what you are getting.</p>
+                </div>
+                <div class="step-item reveal d-3">
+                    <div class="step-num">03</div>
+                    <h3 style="font-family:'Syne',sans-serif;">Build & Test</h3>
+                    <p class="text-muted">We build and test your website to make sure it looks perfect on all devices.</p>
+                </div>
+                <div class="step-item reveal d-3">
+                    <div class="step-num">04</div>
+                    <h3 style="font-family:'Syne',sans-serif;">Launch</h3>
+                    <p class="text-muted">We launch and hand it over to you, with full support moving forward.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="subtitle">Questions</span>
+                <h2>FAQ</h2>
+            </div>
+            
+            <div class="faq-wrapper">
+                <div class="faq-item reveal">
+                    <div class="faq-q">How long does it take? <span class="faq-icon">+</span></div>
+                    <div class="faq-a"><p>Basic 5–7 days, Standard and Premium 2–4 weeks.</p></div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-q">Do I need to provide photos or content? <span class="faq-icon">+</span></div>
+                    <div class="faq-a"><p>It helps, but we guide you through it if you don't have them.</p></div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-q">Can I edit the website myself? <span class="faq-icon">+</span></div>
+                    <div class="faq-a"><p>Premium plan includes an admin panel. Other plans use Care+ for updates.</p></div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-q">What if I already have a domain or hosting? <span class="faq-icon">+</span></div>
+                    <div class="faq-a"><p>No problem — we deploy on your existing setup.</p></div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-q">Can I request changes after launch? <span class="faq-icon">+</span></div>
+                    <div class="faq-a"><p>Small changes included. Major updates priced separately. Care+ covers ongoing changes.</p></div>
+                </div>
+                <div class="faq-item reveal">
+                    <div class="faq-q">Do you offer refunds? <span class="faq-icon">+</span></div>
+                    <div class="faq-a"><p>We get your approval on the mockup before building. Refunds handled case by case.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" style="background: rgba(22, 27, 34, 0.5);">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info reveal">
+                    <span class="subtitle">Let's Talk</span>
+                    <h2>Ready to grow?</h2>
+                    <p>Fill out the form or reach out directly. We'll get back to you within 24 hours.</p>
+                    
+                    <div style="margin-top: 2rem;">
+                        <h4 style="margin-bottom: 0.5rem; color: var(--text-muted); font-family: 'Inter', sans-serif;">Email Us</h4>
+                        <a href="mailto:[hello@yourstudio.com]" style="font-size: 1.25rem;">[hello@yourstudio.com]</a>
+                    </div>
+                    
+                    <div style="margin-top: 2rem;">
+                        <h4 style="margin-bottom: 0.5rem; color: var(--text-muted); font-family: 'Inter', sans-serif;">WhatsApp</h4>
+                        <a href="https://wa.me/91[XXXXXXXXXX]" target="_blank" style="font-size: 1.25rem; color: var(--accent);">+91 [XXXXXXXXXX]</a>
+                    </div>
+                </div>
+                
+                <div class="contact-card reveal d-1">
+                    <form onsubmit="event.preventDefault(); document.getElementById('form-feedback').style.display='block'; this.reset();">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" required placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label>Business Name</label>
+                            <input type="text" class="form-control" required placeholder="Acme Corp">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" class="form-control" required placeholder="+91 99999 99999">
+                        </div>
+                        <div class="form-group">
+                            <label>What do you need?</label>
+                            <select class="form-control" required>
+                                <option value="" disabled selected>Select an option</option>
+                                <option value="basic">Basic Plan (₹7,000)</option>
+                                <option value="standard">Standard Plan (₹12,000)</option>
+                                <option value="premium">Premium Plan (₹25,000)</option>
+                                <option value="notsure">Not sure / Custom</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea class="form-control" placeholder="Tell us a little about your project..."></textarea>
+                        </div>
+                        <button type="submit" class="btn" style="width: 100%;">Send Message</button>
+                        <p id="form-feedback" style="display:none; color: var(--accent); margin-top: 1rem; text-align: center;">Thank you! We'll be in touch soon.</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">[YourStudio]</div>
+            <p class="text-muted" style="margin-bottom: 2rem;">We build websites that grow your business.</p>
+            <div class="footer-links">
+                <a href="#services">Services</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#care">Care+</a>
+                <a href="#faq">FAQ</a>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--card-border);">Made with care by [YourStudio]</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/91[XXXXXXXXXX]" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+    </a>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    document.querySelector('.nav-links').classList.remove('open');
+                }
+            });
+        });
+
+        // Mobile Nav Toggle
+        document.querySelector('.hamburger').addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('open');
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.querySelector('.faq-q').addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+                if (!isActive) item.classList.add('active');
+            });
+        });
+
+        // Intersection Observer for Scroll Reveals
+        const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
